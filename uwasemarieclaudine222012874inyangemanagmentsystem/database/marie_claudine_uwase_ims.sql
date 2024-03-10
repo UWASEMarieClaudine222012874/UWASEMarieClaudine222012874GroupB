@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2024 at 03:21 AM
+-- Generation Time: Mar 09, 2024 at 10:11 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `marie_claudine_uwase_ims`
+-- Database: `inyange_enterprise`
 --
 
 -- --------------------------------------------------------
@@ -29,102 +29,71 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `annoucement` (
   `id` int(11) NOT NULL,
-  `annoucement_message` varchar(90) DEFAULT NULL
+  `message` varchar(90) DEFAULT NULL,
+  `date_added` varchar(90) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `annoucement`
---
-
-INSERT INTO `annoucement` (`id`, `annoucement_message`) VALUES
-(1, 'ssss');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `candidates`
+-- Table structure for table `clients`
 --
 
-CREATE TABLE `candidates` (
-  `candidate_id` int(11) NOT NULL,
-  `name` varchar(90) DEFAULT NULL,
-  `position` varchar(90) DEFAULT NULL,
-  `election_id` int(11) DEFAULT NULL,
-  `gender` varchar(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `candidates`
---
-
-INSERT INTO `candidates` (`candidate_id`, `name`, `position`, `election_id`, `gender`) VALUES
-(2, 'kpo', 'President', 2, 'Male');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `choose_candidate`
---
-
-CREATE TABLE `choose_candidate` (
+CREATE TABLE `clients` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `candidate_id` int(11) DEFAULT NULL
+  `names` varchar(90) DEFAULT NULL,
+  `address` varchar(90) DEFAULT NULL,
+  `age` varchar(90) DEFAULT NULL,
+  `gender` varchar(90) DEFAULT NULL,
+  `email` varchar(90) DEFAULT NULL,
+  `password` varchar(90) DEFAULT NULL,
+  `role` varchar(90) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `choose_candidate`
---
-
-INSERT INTO `choose_candidate` (`id`, `user_id`, `candidate_id`) VALUES
-(1, 1, 2),
-(2, 2, 2),
-(3, 3, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `elections`
+-- Table structure for table `distr_sales`
 --
 
-CREATE TABLE `elections` (
-  `election_id` int(11) NOT NULL,
-  `election_position` varchar(90) DEFAULT NULL,
-  `election_date` varchar(90) DEFAULT NULL,
-  `done_status` int(11) NOT NULL,
-  `winner_status` varchar(90) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `elections`
---
-
-INSERT INTO `elections` (`election_id`, `election_position`, `election_date`, `done_status`, `winner_status`) VALUES
-(1, 'Manager', '1212', 1, 'Pending'),
-(2, 'Manager', '1212', 0, 'Pending'),
-(3, 'President', '1212', 1, 'End');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `events`
---
-
-CREATE TABLE `events` (
+CREATE TABLE `distr_sales` (
   `id` int(11) NOT NULL,
-  `Event_name` varchar(90) DEFAULT NULL,
-  `Event_location` varchar(90) DEFAULT NULL,
-  `Event_date_` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `client_name` varchar(90) DEFAULT NULL,
+  `product` varchar(90) DEFAULT NULL,
+  `quantity` varchar(90) DEFAULT NULL,
+  `amount` varchar(90) DEFAULT NULL,
+  `date_` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `events`
+-- Dumping data for table `distr_sales`
 --
 
-INSERT INTO `events` (`id`, `Event_name`, `Event_location`, `Event_date_`) VALUES
-(2, 'helloo', 'jj', '2024-02-18 10:09:29'),
-(3, 'mike tyzon', 'huye', '2024-02-18 10:09:48'),
-(4, 'mike tyzon', 'huye', '2024-02-18 10:10:23');
+INSERT INTO `distr_sales` (`id`, `client_name`, `product`, `quantity`, `amount`, `date_`) VALUES
+(1, 'mm', 'Milk', 'mm', 'mm', '2024-02-18 18:51:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `distr_stock`
+--
+
+CREATE TABLE `distr_stock` (
+  `id` int(11) NOT NULL,
+  `product_name` varchar(90) DEFAULT NULL,
+  `product_id` varchar(90) DEFAULT NULL,
+  `amount` varchar(90) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `distr_stock`
+--
+
+INSERT INTO `distr_stock` (`id`, `product_name`, `product_id`, `amount`) VALUES
+(1, 'Juice', '67', '78'),
+(2, 'Milk', '90', '78'),
+(3, 'Milk', '', ''),
+(4, 'Milk', '90', '78');
 
 -- --------------------------------------------------------
 
@@ -134,8 +103,8 @@ INSERT INTO `events` (`id`, `Event_name`, `Event_location`, `Event_date_`) VALUE
 
 CREATE TABLE `feedback` (
   `id` int(11) NOT NULL,
-  `names` varchar(90) DEFAULT NULL,
-  `messages` varchar(90) DEFAULT NULL,
+  `distributer_names` varchar(90) DEFAULT NULL,
+  `message` varchar(90) DEFAULT NULL,
   `date_` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -143,8 +112,94 @@ CREATE TABLE `feedback` (
 -- Dumping data for table `feedback`
 --
 
-INSERT INTO `feedback` (`id`, `names`, `messages`, `date_`) VALUES
-(1, 'mike', 'jakgfkwefhaejk', '2024-02-17 22:00:00');
+INSERT INTO `feedback` (`id`, `distributer_names`, `message`, `date_`) VALUES
+(1, NULL, 'asas', '2024-02-18 18:34:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `distributer_names` varchar(90) DEFAULT NULL,
+  `distributer_id` varchar(90) DEFAULT NULL,
+  `date_` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `product_` varchar(90) DEFAULT NULL,
+  `amount` varchar(90) DEFAULT NULL,
+  `confirm_status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `distributer_names`, `distributer_id`, `date_`, `product_`, `amount`, `confirm_status`) VALUES
+(1, 'rt', '1', '2024-02-18 19:38:11', 'Milk', '232', 0),
+(2, 'bn', '1', '2024-02-18 19:39:27', 'Milk', '11', 0),
+(3, 'w', '1', '2024-02-18 19:40:15', 'Milk', '1', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL,
+  `distributer_names` varchar(90) DEFAULT NULL,
+  `distributer_id` varchar(90) DEFAULT NULL,
+  `date_` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `amount` varchar(90) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `product_name` varchar(90) DEFAULT NULL,
+  `boxes` varchar(90) DEFAULT NULL,
+  `amount` varchar(90) DEFAULT NULL,
+  `date_added` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `product_name`, `boxes`, `amount`, `date_added`) VALUES
+(1, 'qw', '21', '21', '2024-02-18 17:22:14'),
+(2, 'inyange', '111', '200', '2024-02-18 17:29:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales`
+--
+
+CREATE TABLE `sales` (
+  `id` int(11) NOT NULL,
+  `distributer_names` varchar(90) DEFAULT NULL,
+  `distributer_id` varchar(90) DEFAULT NULL,
+  `date_` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `product_` varchar(90) DEFAULT NULL,
+  `amount` varchar(90) DEFAULT NULL,
+  `boxes` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`id`, `distributer_names`, `distributer_id`, `date_`, `product_`, `amount`, `boxes`) VALUES
+(1, 'mike', '111', '2024-02-18 16:46:00', 'Milk', '20000', ''),
+(2, 'mike', '11111', '2024-02-18 16:46:12', 'Milk', '20000', ''),
+(3, 'mike', '1', '2024-02-18 16:53:50', 'Milk', '1111', '111');
 
 -- --------------------------------------------------------
 
@@ -153,10 +208,13 @@ INSERT INTO `feedback` (`id`, `names`, `messages`, `date_`) VALUES
 --
 
 CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
-  `username` varchar(90) DEFAULT NULL,
-  `password` varchar(90) DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `names` varchar(90) DEFAULT NULL,
+  `address` varchar(90) DEFAULT NULL,
+  `age` varchar(90) DEFAULT NULL,
+  `gender` varchar(90) DEFAULT NULL,
   `email` varchar(90) DEFAULT NULL,
+  `password` varchar(90) DEFAULT NULL,
   `role` varchar(90) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -164,26 +222,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `role`) VALUES
-(1, 'mime', 'mike', '1234567890', 'USER TYPE:'),
-(2, 'mmm', 'mmm', '1234567890', 'USER TYPE:'),
-(3, 'mike', 'mike', '1234567890', 'Admin'),
-(4, 'mike', 'mike', 'mike', 'Admin'),
-(5, 'blaise', 'blaise', 'blaise', 'Admin'),
-(6, 'LogInLogIn', 'LogInLogIn', 'LogInLogIn', 'User');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `votes`
---
-
-CREATE TABLE `votes` (
-  `vote_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `candidate_id` int(11) DEFAULT NULL,
-  `vote_timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `users` (`id`, `names`, `address`, `age`, `gender`, `email`, `password`, `role`) VALUES
+(1, 'setString', 'setString', '56', 'Male', 'setString', 'setString', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -196,27 +236,21 @@ ALTER TABLE `annoucement`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `candidates`
+-- Indexes for table `clients`
 --
-ALTER TABLE `candidates`
-  ADD PRIMARY KEY (`candidate_id`);
-
---
--- Indexes for table `choose_candidate`
---
-ALTER TABLE `choose_candidate`
+ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `elections`
+-- Indexes for table `distr_sales`
 --
-ALTER TABLE `elections`
-  ADD PRIMARY KEY (`election_id`);
+ALTER TABLE `distr_sales`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `events`
+-- Indexes for table `distr_stock`
 --
-ALTER TABLE `events`
+ALTER TABLE `distr_stock`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -226,16 +260,34 @@ ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- Indexes for table `votes`
---
-ALTER TABLE `votes`
-  ADD PRIMARY KEY (`vote_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -245,30 +297,24 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `annoucement`
 --
 ALTER TABLE `annoucement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `distr_sales`
+--
+ALTER TABLE `distr_sales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `candidates`
+-- AUTO_INCREMENT for table `distr_stock`
 --
-ALTER TABLE `candidates`
-  MODIFY `candidate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `choose_candidate`
---
-ALTER TABLE `choose_candidate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `elections`
---
-ALTER TABLE `elections`
-  MODIFY `election_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `events`
---
-ALTER TABLE `events`
+ALTER TABLE `distr_stock`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
@@ -278,16 +324,34 @@ ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `votes`
---
-ALTER TABLE `votes`
-  MODIFY `vote_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
